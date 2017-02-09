@@ -81,44 +81,49 @@ void sel_sort_v3(int x[], int y[])
 	c = 0;
 	max = 0;
 	
-	for (i = 0; i < ARRLEN; i++) {
-		if ( x[i] > max)
-			max = x[i];
+	for (i = 0; i < ARRLEN; i++) {                                    // c1: n
+		if ( x[i] > max)					  // c2: n
+			max = x[i];                                       // c3: n
 	}
 	
-	for (i = 0; i < ARRLEN; i++) {
-		if (c == 0) {
-			min = max;
+	for (i = 0; i < ARRLEN; i++) {					  // c4: n
+		if (c == 0) {						  // c5: n
+			min = max;					  // c6: n
 		
-			for (j = 0; j < ARRLEN; j++) {
+			for (j = 0; j < ARRLEN; j++) {			  // c7: E(j = 1..n) t(j)
 				
-				if (ft == 1) {
+				if (ft == 1) {				  // c8: E(j = 1..n) t(j)
 					
-					if (x[j] < min ) {
-						min = x[j];
-						c = 1;
-					} else if (x[j] == min) {
-						c++;
+					if (x[j] < min ) {		  // c9: E(j = 1..n) t(j)
+						min = x[j];		  // c10: E(j = 1..n) t(j)
+						c = 1;			  // c11: E(j = 1..n) t(j)
+					} else if (x[j] == min) {	  // c12: E(j = 1..n) t(j)
+						c++;			  // c13: E(j = 1..n) t(j)
 					}
-				} else {
+				} else {				  // c14: E(j = 1..n) t(j)
 				
-					if (x[j] < min && x[j] > pmin) {
-						min = x[j];
-						c = 1;
-					} else if (x[j] == min) {
-						c++;
+					if (x[j] < min && x[j] > pmin) {  // c15: E(j = 1..n) t(j)
+						min = x[j];		  // c16: E(j = 1..n) t(j)
+						c = 1;			  // c17: E(j = 1..n) t(j)
+					} else if (x[j] == min) {	  // c18: E(j = 1..n) t(j)
+						c++;			  // c19: E(j = 1..n) t(j)
 					}
 					
 				}
 			}
 		}
 		
-		ft = 0;		
-		y[i] = min;
-		c--;
-		pmin = min;	
+		ft = 0;							  // c20: n
+		y[i] = min;						  // c21: n
+		c--;							  // c22: n
+		pmin = min;						  // c23: n
 	}
 }
+// Best: T(n) = (c1 .. c4)*n + (c7 + c8 + c9 + c10 +c11) + ( c7 + c14 + c18 + c19 )(n - 1) + (c20 .. c23)*n
+
+
+// Worst: T(n) = (c1 + c2 + c3 + c4 + c5 + c6 + c20 + c21 + c22 + c23)*n + ( c7 ... c19)*( n(n+1)/2 - 1 ) =
+// = (c1 + c2 + c3 + c4 + c5 + c6 + c20 + c21 + c22 + c23)*n + ( c7 ... c19)*( n^2 + n - 2 )
 
 void sel_sort_proper(int x[], int y[])
 {
